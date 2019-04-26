@@ -1,6 +1,7 @@
 package other;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -26,7 +27,7 @@ public class ResultExp extends JFrame implements ActionListener {
 	public ResultExp(String title) {
 
 		setTitle(title);
-		setBounds(0, 0, 1500, 1500);
+		setBounds(0, 0, 1450, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel p1 = new JPanel();
 
@@ -42,6 +43,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "8:00" : "8:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "9:00" : "9:30")+"\n");
 			text.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
+			text.setEnabled(false);
+			text.setDisabledTextColor(Color.BLACK);
 			t1.add(text);
 		}
 
@@ -52,6 +55,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "9:00" : "9:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "10:00" : "10:30"));
 			text1.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
+			text1.setEnabled(false);
+			text1.setDisabledTextColor(Color.BLACK);
 			t1.add(text1);
 		}
 
@@ -62,6 +67,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "10:00" : "10:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "11:00" : "11:30"));
 			text2.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
+			text2.setEnabled(false);
+			text2.setDisabledTextColor(Color.BLACK);
 			t1.add(text2);
 		}
 		p1.add(t1);
@@ -75,6 +82,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "11:00" : "11:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "12:00" : "12:30"));
 			text3.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
+			text3.setEnabled(false);
+			text3.setDisabledTextColor(Color.BLACK);
 			t1.add(text3);
 		}
 
@@ -87,7 +96,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "12:00" : "12:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "13:00" : "13:30"));
 			text4.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
-
+			text4.setEnabled(false);
+			text4.setDisabledTextColor(Color.BLACK);
 			t2.add(text4);
 		}
 
@@ -98,6 +108,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "13:00" : "13:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "14:00" : "14:30"));
 			text5.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
+			text5.setEnabled(false);
+			text5.setDisabledTextColor(Color.BLACK);
 
 			t2.add(text5);
 		}
@@ -110,6 +122,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "14:00" : "14:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "15:00" : "15:30"));
 			text6.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
+			text6.setEnabled(false);
+			text6.setDisabledTextColor(Color.BLACK);
 
 			t2.add(text6);
 		}
@@ -121,6 +135,8 @@ public class ResultExp extends JFrame implements ActionListener {
 					+ "  開始時刻:" + (seat.getIdentifyNum() % 2 == 0 ? "15:00" : "15:30") + "  終了時刻"
 					+ (seat.getIdentifyNum() % 2 == 0 ? "16:00" : "16:30"));
 			text7.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
+			text7.setEnabled(false);
+			text7.setDisabledTextColor(Color.BLACK);
 			t2.add(text7);
 		}
 
@@ -131,12 +147,17 @@ public class ResultExp extends JFrame implements ActionListener {
 		int width = t3.getMaximumSize().width;
 		t3.setMaximumSize(new Dimension(width,Short.MAX_VALUE));
 
+		JLabel titleLabel9 = new JLabel("Final History");
+		t3.add(titleLabel9);
+
 		for (PersonDTO person :MakeFlameAction.personList) {
 				JTextField text7= new JTextField("名前:" + person.getName() + "  最終シフト:" + person.getLastStrInChar()
 						+ "  一時間休憩を何回したか:" + person.getAlreadyDone() + "  入ったシフト:"
 						+person.getHistory()+"教務担当者:" + (person.getNeedHelp() == 1 ? person.getTeacher().getName() : "No Need"));
 				text7.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 10));
-				t3.add(Box.createRigidArea(new Dimension(25,25)));
+				text7.setEnabled(false);
+				text7.setDisabledTextColor(Color.GRAY);
+				t3.add(Box.createRigidArea(new Dimension(23,23)));
 				t3.add(text7);
 			}
 			p1.add(t3);
