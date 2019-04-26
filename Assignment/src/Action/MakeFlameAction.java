@@ -12,16 +12,18 @@ import DTO.InchargeScheduleDTO;
 import DTO.PersonDTO;
 
 public class MakeFlameAction {
-	static List<InchargeScheduleDTO> seatList = new ArrayList<>();
-	static List<PersonDTO> personList = new ArrayList<>();
+	public static List<InchargeScheduleDTO> seatList = new ArrayList<>();
+	public static List<PersonDTO> personList = new ArrayList<>();
 
 	public MakeFlameAction(List<PersonDTO> list) {
+		seatList.removeIf(s->true);
+		personList.removeIf(s->true);
 		for (PersonDTO person : list) {
 			personList.add(person);
 		}
 	}
 
-	public void makeflame() {
+	public List<InchargeScheduleDTO> makeflame() {
 		for (int i = 1; i < 9; i++) {
 			InchargeScheduleDTO seat = new InchargeScheduleDTO();
 			seat.setIdentifyNum(i);
@@ -205,14 +207,16 @@ public class MakeFlameAction {
 			System.out.println("教務担当者:" + (person.getNeedHelp() == 1 ? person.getTeacher().getName() : "No Need"));
 			System.out.println();
 		}
+
+		return seatList;
 	}
 
 	public static void AssignPerson(InchargeScheduleDTO seat, int startHour, int startMinute)
 			throws IndexOutOfBoundsException {
 		List<PersonDTO> tempList = new CopyOnWriteArrayList<>();
-		
-		//30分間インターバルが存在しない場合
-		tempList = personList.stream() 
+
+		//30分間インターバルが存在しない場合、既に指定シフト（あるいはそのペア）に入っている場合、フィルターをかける
+		tempList = personList.stream()
 				.filter(s -> s.getLastStrInChar()
 						.isBefore(LocalTime.of((startMinute - 31 == -31 ? (startHour - 1) : startHour),
 								(startMinute - 31 == -31 ? 31 : 1))))
@@ -295,6 +299,7 @@ public class MakeFlameAction {
 	//当該シフトに入っていないPersonをリスト化
 	public static void WhoisIdle(int identifer) {
 		List<PersonDTO> idleList = new CopyOnWriteArrayList<>();
+		idleList.removeIf(s->true);
 		idleList.addAll(personList);
 		System.out.println("IdleList");
 		for (InchargeScheduleDTO seat : seatList) {
