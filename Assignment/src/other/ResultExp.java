@@ -1,6 +1,7 @@
 package other;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -125,15 +127,19 @@ public class ResultExp extends JFrame implements ActionListener {
 		p1.add(t2);
 
 		JPanel t3 = new JPanel();
+		t3.setLayout(new BoxLayout(t3, BoxLayout.PAGE_AXIS));
+		int width = t3.getMaximumSize().width;
+		t3.setMaximumSize(new Dimension(width,Short.MAX_VALUE));
 
 		for (PersonDTO person :MakeFlameAction.personList) {
-			for (InchargeScheduleDTO seat : MakeFlameAction.seatList) {
 				JTextField text7= new JTextField("名前:" + person.getName() + "  最終シフト:" + person.getLastStrInChar()
 						+ "  一時間休憩を何回したか:" + person.getAlreadyDone() + "  入ったシフト:"
-						+person.getHistory());
-				text7.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 15));
-				t2.add(text7);
+						+person.getHistory()+"教務担当者:" + (person.getNeedHelp() == 1 ? person.getTeacher().getName() : "No Need"));
+				text7.setFont(new Font("ＭＳ ゴシック", Font.PLAIN, 10));
+				t3.add(Box.createRigidArea(new Dimension(25,25)));
+				t3.add(text7);
 			}
+			p1.add(t3);
 
 
 
@@ -141,22 +147,6 @@ public class ResultExp extends JFrame implements ActionListener {
 
 
 
-
-
-
-
-			System.out.println("名前:" + person.getName());
-			System.out.println("最終シフト:" + person.getLastStrInChar());
-			System.out.println("一時間休憩を何回したか:" + person.getAlreadyDone());
-			System.out.print("入ったシフト:");
-			for (int i : person.getHistory()) {
-				System.out.print(i);
-				System.out.print(" ");
-			}
-			System.out.println();
-			System.out.println("教務担当者:" + (person.getNeedHelp() == 1 ? person.getTeacher().getName() : "No Need"));
-			System.out.println();
-		}
 
 		getContentPane().add(p1, BorderLayout.LINE_START);
 
